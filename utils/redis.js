@@ -3,29 +3,19 @@ import { promisify } from 'util';
 
 class RedisClient {
   constructor() {
+    this.redisClientConnected = true;
     this.client = redis.createClient();
     this.client.on('error', (error) => {
       console.log(`${error}`);
+      this.redisClientConnected = false;
     });
-    this.client.on('connect', (err) => {
-      if (!err) {
-        console.log('Redis client connected');
-      } else {
-        console.log(`${err}`);
-      }
+    this.client.on('connect', () => {
+      this.redisClientConnected = true;
     });
   }
 
   isAlive() {
-    return this.client.connected;
-    // return new Promise((resolve, reject) => {
-    //   this.client.ping((err, reply) => {
-    //     if (err) {
-    //       reject(err);
-    //     }
-    //     resolve(reply === 'PONG');
-    //   });
-    // });
+    return this.redisClientConnected;
   }
 
   async get(key) {
