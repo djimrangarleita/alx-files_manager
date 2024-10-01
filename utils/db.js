@@ -17,7 +17,7 @@ class DBClient {
     try {
       return this.client.isConnected();
     } catch (error) {
-      console.error('[PINGERROR]', error.message);
+      // console.error('[PINGERROR]', error.message);
       return false;
     }
   }
@@ -26,7 +26,7 @@ class DBClient {
     try {
       return this.db.collection('users').countDocuments();
     } catch (error) {
-      console.error('[USERCOUNTERROR]', error.message);
+      // console.error('[USERCOUNTERROR]', error.message);
       return 0;
     }
   }
@@ -35,7 +35,7 @@ class DBClient {
     try {
       return this.db.collection('files').countDocuments();
     } catch (error) {
-      console.error('[FILESCOUNTERROR]', error.message);
+      // console.error('[FILESCOUNTERROR]', error.message);
       return 0;
     }
   }
