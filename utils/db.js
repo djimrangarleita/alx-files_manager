@@ -14,30 +14,30 @@ class DBClient {
   }
 
   async isAlive() {
-    try {
-      return this.client.isConnected();
-    } catch (error) {
-      // console.error('[PINGERROR]', error.message);
-      return false;
-    }
+    return this.client.isConnected();
+    // try {
+    // } catch (error) {
+    //   console.error('[PINGERROR]', error.message);
+    //   return false;
+    // }
   }
 
   async nbUsers() {
-    try {
-      return this.db.collection('users').countDocuments();
-    } catch (error) {
-      // console.error('[USERCOUNTERROR]', error.message);
-      return 0;
-    }
+    return this.db.collection('users').countDocuments();
+    // try {
+    // } catch (error) {
+    //   console.error('[USERCOUNTERROR]', error.message);
+    //   return 0;
+    // }
   }
 
   async nbFiles() {
-    try {
-      return this.db.collection('files').countDocuments();
-    } catch (error) {
-      // console.error('[FILESCOUNTERROR]', error.message);
-      return 0;
-    }
+    return this.db.collection('files').countDocuments();
+    // try {
+    // } catch (error) {
+    //   console.error('[FILESCOUNTERROR]', error.message);
+    //   return 0;
+    // }
   }
 }
 
