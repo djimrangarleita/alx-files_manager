@@ -5,7 +5,6 @@ const uri = `mongodb://${config.dbHost}:${config.dbPort}/${config.dbName}`;
 class DBClient {
   constructor() {
     this.client = new MongoClient(uri, {
-      useNewUrlParser: true,
       useUnifiedTopology: true,
     });
 
@@ -14,30 +13,30 @@ class DBClient {
   }
 
   async isAlive() {
-    return this.client.isConnected();
-    // try {
-    // } catch (error) {
-    //   console.error('[PINGERROR]', error.message);
-    //   return false;
-    // }
+    try {
+      return this.client.isConnected();
+    } catch (error) {
+      console.error('[PINGERROR]', error.message);
+      return false;
+    }
   }
 
   async nbUsers() {
-    return this.db.collection('users').countDocuments();
-    // try {
-    // } catch (error) {
-    //   console.error('[USERCOUNTERROR]', error.message);
-    //   return 0;
-    // }
+    try {
+      return this.db.collection('users').countDocuments();
+    } catch (error) {
+      console.error('[USERCOUNTERROR]', error.message);
+      return 0;
+    }
   }
 
   async nbFiles() {
-    return this.db.collection('files').countDocuments();
-    // try {
-    // } catch (error) {
-    //   console.error('[FILESCOUNTERROR]', error.message);
-    //   return 0;
-    // }
+    try {
+      return this.db.collection('files').countDocuments();
+    } catch (error) {
+      console.error('[FILESCOUNTERROR]', error.message);
+      return 0;
+    }
   }
 }
 
