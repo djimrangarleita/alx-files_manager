@@ -38,6 +38,25 @@ class DBClient {
       return 0;
     }
   }
+
+  async createDocument(collectionName, doc) {
+    if (collectionName === 'users') {
+      await this.checkUserDoesntExist(doc.email);
+    }
+    const { insertedId } = await this.db.collection(collectionName).insertOne(doc);
+    return this.getDocumentByKV(collectionName, '_id', insertedId);
+  }
+
+  async getDocumentByKV(collectionName, key, value) {
+    return this.db.collection(collectionName).findOne({ [key]: value });
+  }
+
+  async checkUserDoesntExist(email) {
+    const user = await this.getDocumentByKV('users', 'email', email);
+    if (user) {
+      throw new Error('Already exist');
+    }
+  }
 }
 
 const dbClient = new DBClient();
