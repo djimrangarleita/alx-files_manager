@@ -3,7 +3,6 @@ import dbClient from '../utils/db';
 import { getUser } from '../utils/objectSerializer';
 import { validateUser } from '../utils/validator';
 
-// eslint-disable-next-line import/prefer-default-export
 export const postNew = async (req, res) => {
   try {
     validateUser(req.body);
@@ -15,4 +14,9 @@ export const postNew = async (req, res) => {
   } catch (error) {
     return res.status(400).send({ error: error.message });
   }
+};
+
+export const getMe = async (req, res) => {
+  const { user } = req;
+  return res.send(getUser(user));
 };

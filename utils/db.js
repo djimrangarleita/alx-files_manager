@@ -57,6 +57,14 @@ class DBClient {
       throw new Error('Already exist');
     }
   }
+
+  async findUserOrThrow(credentials) {
+    const user = await this.db.collection('users').findOne(credentials);
+    if (!user) {
+      throw new Error('Unauthorized');
+    }
+    return user;
+  }
 }
 
 const dbClient = new DBClient();
