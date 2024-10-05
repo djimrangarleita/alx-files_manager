@@ -4,7 +4,7 @@ export const getUser = (userObject) => ({
 });
 
 export const getFile = (object) => {
-  const { _id, ...file } = object;
+  const { _id, localPath, ...file } = object;
   const fileDto = { id: object._id, ...file };
   return fileDto;
 };
