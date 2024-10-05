@@ -3,8 +3,8 @@ export const getUser = (userObject) => ({
   email: userObject.email,
 });
 
-export const getFile = (object) => ({
-  id: object._id,
-  name: object.name,
-  type: object.type,
-});
+export const getFile = (object) => {
+  const { _id, ...file } = object;
+  const fileDto = { id: object._id, ...file };
+  return fileDto;
+};

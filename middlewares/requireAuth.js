@@ -10,7 +10,7 @@ const requireAuth = async (req, res, next) => {
       throw new Error('Unauthorized');
     }
 
-    const user = await dbClient.getDocumentByKV('users', '_id', ObjectId(userId));
+    const user = await dbClient.getDocument('users', ObjectId(userId), '_id');
     if (!user) {
       throw new Error('Unauthorized');
     }

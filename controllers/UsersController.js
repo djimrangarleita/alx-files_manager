@@ -1,11 +1,11 @@
 import sha1 from 'sha1';
 import dbClient from '../utils/db';
 import { getUser } from '../utils/objectSerializer';
-import { validateUser } from '../utils/validator';
+import validate from '../utils/validator';
 
 export const postNew = async (req, res) => {
   try {
-    validateUser(req.body);
+    validate.user(req.body);
 
     const { email, password } = req.body;
     const user = await dbClient.createDocument('users', { email, password: sha1(password) });

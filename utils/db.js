@@ -46,15 +46,18 @@ class DBClient {
       await this.checkUserDoesntExist(doc.email);
     }
     const { insertedId } = await this.db.collection(collectionName).insertOne(doc);
-    return this.getDocumentByKV(collectionName, '_id', insertedId);
+    return this.getDocument(collectionName, insertedId, '_id');
   }
 
-  async getDocumentByKV(collectionName, key, value) {
+  async getDocument(collectionName, value, key = undefined) {
+    if (!key) {
+      return this.db.collection(collectionName).findOne({ value });
+    }
     return this.db.collection(collectionName).findOne({ [key]: value });
   }
 
   async checkUserDoesntExist(email) {
-    const user = await this.getDocumentByKV('users', 'email', email);
+    const user = await this.getDocument('users', email);
     if (user) {
       throw new Error('Already exist');
     }

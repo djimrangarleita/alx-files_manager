@@ -6,6 +6,8 @@ const config = {
   serverPort: process.env.PORT || '5000',
 
   authTokenTtl: process.env.AUTH_TOKEN_TTL || 86400,
+
+  folderPath: process.env.FOLDER_PATH || '/tmp/files_manager',
 };
 
 export default config;
