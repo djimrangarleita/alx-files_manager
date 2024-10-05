@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import dbClient from './db';
 
 const user = (doc) => {
@@ -38,7 +39,7 @@ const file = async (uploadedFile) => {
   }
 
   if (parentId) {
-    const parent = await dbClient.getDocument('files', parentId, 'parentId');
+    const parent = await dbClient.getDocument('files', ObjectId(parentId), '_id');
     if (!parent) {
       throw new Error('Parent not found');
     }
