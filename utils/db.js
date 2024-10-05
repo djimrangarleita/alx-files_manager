@@ -14,7 +14,8 @@ class DBClient {
 
   async isAlive() {
     try {
-      return this.client.isConnected();
+      const result = await this.client.isConnected();
+      return result;
     } catch (error) {
       console.error('[PINGERROR]', error.message);
       return false;
