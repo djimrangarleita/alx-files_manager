@@ -38,7 +38,7 @@ const file = async (uploadedFile) => {
   }
 
   if (parentId) {
-    const parent = await dbClient.getDocument('files', parentId);
+    const parent = await dbClient.getDocument('files', parentId, 'parentId');
     if (!parent) {
       throw new Error('Parent not found');
     }

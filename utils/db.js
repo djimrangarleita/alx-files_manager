@@ -57,7 +57,7 @@ class DBClient {
   }
 
   async checkUserDoesntExist(email) {
-    const user = await this.getDocument('users', email);
+    const user = await this.getDocument('users', email, 'email');
     if (user) {
       throw new Error('Already exist');
     }
