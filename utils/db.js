@@ -4,22 +4,23 @@ import config from '../config';
 const uri = `mongodb://${config.dbHost}:${config.dbPort}/${config.dbName}`;
 class DBClient {
   constructor() {
+    this.isDbConnected = false;
     this.client = new MongoClient(uri, {
       useUnifiedTopology: true,
     });
 
-    this.client.connect();
+    this.client.connect((err) => {
+      if (err) {
+        console.error(err.message);
+      } else {
+        this.isDbConnected = true;
+      }
+    });
     this.db = this.client.db();
   }
 
-  async isAlive() {
-    try {
-      const result = await this.client.isConnected();
-      return result;
-    } catch (error) {
-      console.error('[PINGERROR]', error.message);
-      return false;
-    }
+  isAlive() {
+    return this.isDbConnected;
   }
 
   async nbUsers() {
