@@ -9,19 +9,16 @@ const uploadFile = (data) => {
   }
   const absPath = path.resolve(config.folderPath);
   const filePath = path.join(absPath, uuidv4());
-  fs.mkdir(absPath, { recursive: true }, (err) => {
-    if (err) {
-      if (err.message !== 'EEXIST') {
-        throw err;
-      }
+  try {
+    fs.mkdirSync(absPath, { recursive: true });
+  } catch (error) {
+    console.error(error.message);
+    if (error.message !== 'EEXIST') {
+      throw error;
     }
-  });
+  }
 
-  fs.writeFile(filePath, data, { encoding: 'base64' }, (err) => {
-    if (err) {
-      throw err;
-    }
-  });
+  fs.writeFileSync(filePath, data, { encoding: 'base64' });
 
   return filePath;
 };
